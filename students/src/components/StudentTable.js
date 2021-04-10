@@ -128,7 +128,7 @@ export default function StudentTable() {
             name="gender"
             value="female"
             onChange={genderFilter}
-          />
+          />{" "}
           <label>Male:</label>
           <input
             id="rd1"
@@ -167,6 +167,7 @@ export default function StudentTable() {
             <th>Id</th>
             <th>Photo</th>
             <th
+              className="cursor firstName"
               onClick={() => {
                 sortByFirstName(!sort);
                 sort = !sort;
@@ -175,6 +176,7 @@ export default function StudentTable() {
               First Name
             </th>
             <th
+              className="cursor lastName"
               onClick={() => {
                 sortByLastName(!sort);
                 sort = !sort;
@@ -183,6 +185,7 @@ export default function StudentTable() {
               Last Name
             </th>
             <th
+              className="cursor age"
               onClick={() => {
                 sortByAge(!sort);
                 sort = !sort;
