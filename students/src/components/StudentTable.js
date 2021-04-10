@@ -21,29 +21,24 @@ export default function StudentTable() {
   }, [setStudents]);
 
   function sortByAge(sorted) {
-    if (!sorted) {
-      sortedStudents.sort((a, b) => {
-        if (a.dob.age < b.dob.age) {
-          return -1;
-        }
-        if (a.dob.age > b.dob.age) {
-          return 1;
-        }
-        return 0;
-      });
-      setStudents(sortedStudents);
-    } else {
-      sortedStudents.sort((a, b) => {
-        if (a.dob.age < b.dob.age) {
-          return 1;
-        }
-        if (a.dob.age > b.dob.age) {
-          return -1;
-        }
-        return 0;
-      });
-      setStudents(sortedStudents);
-    }
+    const res = sorted
+      ? sortedStudents.sort((a, b) => a.dob.age - b.dob.age)
+      : sortedStudents.sort((a, b) => b.dob.age - a.dob.age);
+    setStudents(sortedStudents);
+  }
+
+  function sortByFirstName(sorted) {
+    const res = sorted
+      ? sortedStudents.sort((a, b) => a.name.first.localeCompare(b.name.first))
+      : sortedStudents.sort((a, b) => b.name.first.localeCompare(a.name.first));
+    setStudents(sortedStudents);
+  }
+
+  function sortByLastName(sorted) {
+    const res = sorted
+      ? sortedStudents.sort((a, b) => a.name.last.localeCompare(b.name.last))
+      : sortedStudents.sort((a, b) => b.name.last.localeCompare(a.name.last));
+    setStudents(sortedStudents);
   }
 
   return (
@@ -51,14 +46,26 @@ export default function StudentTable() {
       <tr>
         <th>Id</th>
         <th>Photo</th>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th
+          onClick={() => {
+            sortByFirstName(!sort);
+            sort = !sort;
+          }}
+        >
+          First Name
+        </th>
+        <th
+          onClick={() => {
+            sortByLastName(!sort);
+            sort = !sort;
+          }}
+        >
+          Last Name
+        </th>
         <th
           onClick={() => {
             sortByAge(!sort);
-            console.log(sort);
             sort = !sort;
-            console.log(sort);
           }}
         >
           Age
@@ -70,7 +77,6 @@ export default function StudentTable() {
         return (
           <tr>
             <td>{(id += 1)}</td>
-            {/* <td>{Avatars(s.picture.medium)}</td> */}
             <td>
               <img
                 src={s.picture.medium}
