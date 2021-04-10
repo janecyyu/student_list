@@ -58,11 +58,49 @@ export default function StudentTable() {
   }
   useEffect(() => reset(), []);
 
+  function handleFilter(e) {
+    const clicked = e.target.closest(".filter");
+    console.log(clicked);
+    if (!clicked) {
+      return;
+    } else {
+      handleChange(e);
+    }
+  }
+
+  let minAge = 0;
+  let maxAge = 0;
+
+  function handleAgeMin(e) {
+    const value = e.target.value;
+    minAge = value;
+  }
+  function handleAgeMax(e) {
+    const value = e.target.value;
+    maxAge = value;
+    console.log(value);
+  }
+
+  function SubmitAge() {
+    if (parseInt(minAge) > parseInt(maxAge)) {
+      console.log(minAge > maxAge);
+      alert("wrong number");
+      reset();
+    } else {
+      console.log("sort!");
+      setStudents(
+        students.filter((s) => s.dob.age >= minAge && s.dob.age <= maxAge)
+      );
+    }
+  }
+
   function reset() {
     document.getElementById("rd1").checked = false;
     document.getElementById("rd2").checked = false;
+    document.getElementById("minAge").value = "";
+    document.getElementById("maxAge").value = "";
   }
-
+  console.log(students);
   return (
     <div>
       <div className="filter">
@@ -73,7 +111,7 @@ export default function StudentTable() {
           type="radio"
           name="gender"
           value="male"
-          onChange={handleChange}
+          onChange={handleFilter}
         />
         <label>Female:</label>
         <input
@@ -81,8 +119,29 @@ export default function StudentTable() {
           type="radio"
           name="gender"
           value="female"
-          onChange={handleChange}
+          onChange={handleFilter}
         />
+        <h4>Filter by age</h4>
+        <input
+          type="number"
+          id="minAge"
+          name="age"
+          min="1"
+          max="100"
+          onChange={handleAgeMin}
+          placeholder="Min Age"
+        ></input>
+        ~
+        <input
+          type="number"
+          id="maxAge"
+          name="age"
+          min="1"
+          max="100"
+          onChange={handleAgeMax}
+          placeholder="Max Age"
+        ></input>
+        <button onClick={SubmitAge}>Go</button>
       </div>
       <button
         onClick={() => {
