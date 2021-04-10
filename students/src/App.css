@@ -45,7 +45,7 @@ tr:nth-child(even) {
   color: rgb(33, 33, 33);
   border: none;
   padding: 3px;
-  width: 40px;
+  width: 50px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -55,9 +55,10 @@ tr:nth-child(even) {
 }
 
 .submitAge:hover{
-  background-color:  rgb(33, 33, 33); 
+  background-color:rgb(33, 33, 33); 
   color:#e7e7e7;
-  transition-delay: 0.2s;
+  transition-duration: 0.2s;
+
 }
 
 input,.cursor{
@@ -70,4 +71,32 @@ input,.cursor{
 
 .age {
   width: 3rem;
+}
+
+.resetButton {
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  
+  background-color: rgb(67, 67, 67);
+  color: white;
+}
+
+.resetButton:hover {
+  background-color: white;
+
+  color: rgb(67, 67, 67);
+  border: 2px solid rgb(67, 67, 67);
+}
+
+.resetContainer{
+  display: flex;
+  justify-content: flex-end;
 }

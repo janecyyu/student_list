@@ -110,14 +110,17 @@ export default function StudentTable() {
   }
   return (
     <div>
-      <button
-        onClick={() => {
-          setStudents(origin);
-          reset();
-        }}
-      >
-        Reset
-      </button>
+      <div className="resetContainer">
+        <button
+          className="resetButton"
+          onClick={() => {
+            setStudents(origin);
+            reset();
+          }}
+        >
+          Reset
+        </button>
+      </div>
       <div className="content">
         <div className="filter">
           <h4>Filter by gender</h4>
@@ -173,7 +176,7 @@ export default function StudentTable() {
                 sort = !sort;
               }}
             >
-              First Name
+              First Name ↕
             </th>
             <th
               className="cursor lastName"
@@ -182,7 +185,7 @@ export default function StudentTable() {
                 sort = !sort;
               }}
             >
-              Last Name
+              Last Name ↕
             </th>
             <th
               className="cursor age"
@@ -191,7 +194,7 @@ export default function StudentTable() {
                 sort = !sort;
               }}
             >
-              Age
+              Age ↕
             </th>
             <th>Email</th>
             <th>Address</th>
