@@ -10,6 +10,8 @@ export default function StudentTable() {
   const [origin, setOrigin] = useState([]);
   let sortedStudents = [...students];
   let id = 0;
+  let minAge = 0;
+  let maxAge = 100;
 
   useEffect(() => {
     axios
@@ -24,6 +26,8 @@ export default function StudentTable() {
         console.log(err);
       });
   }, [setStudents]);
+
+  useEffect(() => reset(), []);
 
   function sortByAge(sorted) {
     const _ = sorted
@@ -56,11 +60,9 @@ export default function StudentTable() {
       setStudents(boys);
     } else setStudents(students);
   }
-  useEffect(() => reset(), []);
 
-  function handleFilter(e) {
+  function genderFilter(e) {
     const clicked = e.target.closest(".filter");
-    console.log(clicked);
     if (!clicked) {
       return;
     } else {
@@ -68,13 +70,11 @@ export default function StudentTable() {
     }
   }
 
-  let minAge = 0;
-  let maxAge = 0;
-
   function handleAgeMin(e) {
     const value = e.target.value;
     minAge = value;
   }
+
   function handleAgeMax(e) {
     const value = e.target.value;
     maxAge = value;
@@ -82,15 +82,21 @@ export default function StudentTable() {
   }
 
   function SubmitAge() {
-    if (parseInt(minAge) > parseInt(maxAge)) {
+    const renewStudents = [...origin];
+    if (minAge == 0 && maxAge == 100) {
+      return;
+    } else if (parseInt(minAge) > parseInt(maxAge)) {
       console.log(minAge > maxAge);
       alert("wrong number");
       reset();
     } else {
-      console.log("sort!");
       setStudents(
-        students.filter((s) => s.dob.age >= minAge && s.dob.age <= maxAge)
+        renewStudents.filter((s) => s.dob.age >= minAge && s.dob.age <= maxAge)
       );
+      document.getElementById("minAge").value = "";
+      document.getElementById("maxAge").value = "";
+      minAge = 0;
+      maxAge = 100;
     }
   }
 
@@ -99,50 +105,11 @@ export default function StudentTable() {
     document.getElementById("rd2").checked = false;
     document.getElementById("minAge").value = "";
     document.getElementById("maxAge").value = "";
+    minAge = 0;
+    maxAge = 100;
   }
-  console.log(students);
   return (
     <div>
-      <div className="filter">
-        <h4>Filter by gender</h4>
-        <label>Male:</label>
-        <input
-          id="rd1"
-          type="radio"
-          name="gender"
-          value="male"
-          onChange={handleFilter}
-        />
-        <label>Female:</label>
-        <input
-          id="rd2"
-          type="radio"
-          name="gender"
-          value="female"
-          onChange={handleFilter}
-        />
-        <h4>Filter by age</h4>
-        <input
-          type="number"
-          id="minAge"
-          name="age"
-          min="1"
-          max="100"
-          onChange={handleAgeMin}
-          placeholder="Min Age"
-        ></input>
-        ~
-        <input
-          type="number"
-          id="maxAge"
-          name="age"
-          min="1"
-          max="100"
-          onChange={handleAgeMax}
-          placeholder="Max Age"
-        ></input>
-        <button onClick={SubmitAge}>Go</button>
-      </div>
       <button
         onClick={() => {
           setStudents(origin);
@@ -151,62 +118,109 @@ export default function StudentTable() {
       >
         Reset
       </button>
-      <tr>
-        <th>Id</th>
-        <th>Photo</th>
-        <th
-          onClick={() => {
-            sortByFirstName(!sort);
-            sort = !sort;
-          }}
-        >
-          First Name
-        </th>
-        <th
-          onClick={() => {
-            sortByLastName(!sort);
-            sort = !sort;
-          }}
-        >
-          Last Name
-        </th>
-        <th
-          onClick={() => {
-            sortByAge(!sort);
-            sort = !sort;
-          }}
-        >
-          Age
-        </th>
-        <th>Email</th>
-        <th>Address</th>
-      </tr>
-      {students.map((s) => {
-        return (
+      <div className="content">
+        <div className="filter">
+          <h4>Filter by gender</h4>
+          <label>Female:</label>
+          <input
+            id="rd2"
+            type="radio"
+            name="gender"
+            value="female"
+            onChange={genderFilter}
+          />
+          <label>Male:</label>
+          <input
+            id="rd1"
+            type="radio"
+            name="gender"
+            value="male"
+            onChange={genderFilter}
+          />
+          <h4>Filter by age</h4>
+          <input
+            type="number"
+            id="minAge"
+            name="age"
+            onChange={handleAgeMin}
+            placeholder="0"
+          ></input>
+          ~
+          <input
+            type="number"
+            id="maxAge"
+            name="age"
+            onChange={handleAgeMax}
+            placeholder="100"
+          ></input>
+          <button
+            className="submitAge"
+            onClick={() => {
+              SubmitAge();
+            }}
+          >
+            Go
+          </button>
+        </div>
+        <div>
           <tr>
-            <td>{(id += 1)}</td>
-            <td>
-              <img
-                src={s.picture.medium}
-                alt={s.name.first + " " + s.name.last}
-              />
-            </td>
-            <td>{s.name.first}</td>
-            <td>{s.name.last}</td>
-            <td>{s.dob.age}</td>
-            <td>{s.email}</td>
-            <td>
-              {s.location.street.number +
-                " " +
-                s.location.street.name +
-                ", " +
-                s.location.city +
-                ", " +
-                s.location.country}
-            </td>
+            <th>Id</th>
+            <th>Photo</th>
+            <th
+              onClick={() => {
+                sortByFirstName(!sort);
+                sort = !sort;
+              }}
+            >
+              First Name
+            </th>
+            <th
+              onClick={() => {
+                sortByLastName(!sort);
+                sort = !sort;
+              }}
+            >
+              Last Name
+            </th>
+            <th
+              onClick={() => {
+                sortByAge(!sort);
+                sort = !sort;
+              }}
+            >
+              Age
+            </th>
+            <th>Email</th>
+            <th>Address</th>
           </tr>
-        );
-      })}
+          {students.map((s) => {
+            return (
+              <tr>
+                <td>{(id += 1)}</td>
+                <td>
+                  <img
+                    src={s.picture.medium}
+                    alt={s.name.first + " " + s.name.last}
+                  />
+                </td>
+                <td>{s.name.first}</td>
+                <td>{s.name.last}</td>
+                <td>{s.dob.age}</td>
+                <td>{s.email}</td>
+                <td>
+                  {s.location.street.number +
+                    " " +
+                    s.location.street.name +
+                    ", " +
+                    s.location.city +
+                    ", " +
+                    s.location.country}
+                </td>
+              </tr>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

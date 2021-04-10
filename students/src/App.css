@@ -1,8 +1,12 @@
 .App {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   justify-content: space-around;
   margin: 5%;
+}
+
+.content{
+  display: flex;
 }
 
 
@@ -25,5 +29,12 @@ tr:nth-child(even) {
 .filter{
   height: 15rem;
   width: 15rem;
-  border: 1px solid blue;
+}
+
+#minAge, #maxAge {
+  width: 4rem;
+}
+
+.submitAge{
+  margin-left: 1.5%;
 }
