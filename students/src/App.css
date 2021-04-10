@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
+
+
 *{
-  color: rgb(33, 33, 33);
+  color: rgb(53, 53, 53);
+  font-family: 'Noto Sans JP', sans-serif;
 
 }
 .App {
@@ -11,7 +15,6 @@
 .content{
   display: flex;
 }
-
 
 table {
   font-family: arial, sans-serif;
@@ -70,7 +73,7 @@ input,.cursor{
 }
 
 .age {
-  width: 3rem;
+  width: 3.5rem;
 }
 
 .resetButton {
@@ -99,4 +102,8 @@ input,.cursor{
 .resetContainer{
   display: flex;
   justify-content: flex-end;
+}
+
+img {
+  border-radius: 50%;
 }
