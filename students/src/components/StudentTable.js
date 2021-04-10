@@ -17,8 +17,8 @@ export default function StudentTable() {
     axios
       .get(`https://randomuser.me/api/?results=12`)
       .then((re) => {
-        setGirls(re.data.results.filter((s) => s.gender == "female"));
-        setBoys(re.data.results.filter((s) => s.gender == "male"));
+        setGirls(re.data.results.filter((s) => s.gender === "female"));
+        setBoys(re.data.results.filter((s) => s.gender === "male"));
         setOrigin(re.data.results);
         setStudents(re.data.results);
       })
@@ -54,9 +54,9 @@ export default function StudentTable() {
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
-    if (value == "female") {
+    if (value === "female") {
       setStudents(girls);
-    } else if (value == "male") {
+    } else if (value === "male") {
       setStudents(boys);
     } else setStudents(students);
   }
@@ -83,7 +83,7 @@ export default function StudentTable() {
 
   function SubmitAge() {
     const renewStudents = [...origin];
-    if (minAge == 0 && maxAge == 100) {
+    if (minAge === 0 && maxAge === 100) {
       return;
     } else if (parseInt(minAge) > parseInt(maxAge)) {
       console.log(minAge > maxAge);
