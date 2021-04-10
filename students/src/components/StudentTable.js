@@ -109,7 +109,7 @@ export default function StudentTable() {
     maxAge = 100;
   }
   return (
-    <div>
+    <div className="tableClass">
       <h1>Students List</h1>
       <div className="resetContainer">
         <button

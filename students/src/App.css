@@ -6,14 +6,23 @@
   font-family: 'Noto Sans JP', sans-serif;
 
 }
+
 .App {
   display: flex;
-  justify-content: space-around;
-  margin: 5%;
+  flex-direction: column;
 }
 
 .content{
   display: flex;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+h6{
+ text-align: center;
+ margin-bottom:0;
 }
 
 table {
@@ -61,7 +70,16 @@ tr:nth-child(even) {
   background-color:rgb(33, 33, 33); 
   color:#e7e7e7;
   transition-duration: 0.2s;
+}
 
+.tableClass{
+  margin: 4% 5%;
+  margin-top: 1%;
+}
+
+a{
+  text-decoration: none;
+  color: gray;
 }
 
 input,.cursor{
