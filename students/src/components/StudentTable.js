@@ -7,18 +7,17 @@ export default function StudentTable() {
   const [students, setStudents] = useState([]);
   const [girls, setGirls] = useState([]);
   const [boys, setBoys] = useState([]);
+  const [origin, setOrigin] = useState([]);
   let sortedStudents = [...students];
   let id = 0;
 
-  console.log(students);
   useEffect(() => {
     axios
       .get(`https://randomuser.me/api/?results=10`)
       .then((re) => {
-        console.log(re.data.results);
-
         setGirls(re.data.results.filter((s) => s.gender == "female"));
         setBoys(re.data.results.filter((s) => s.gender == "male"));
+        setOrigin(re.data.results);
         setStudents(re.data.results);
       })
       .catch((err) => {
@@ -50,13 +49,18 @@ export default function StudentTable() {
   function handleChange(e) {
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
-    console.log(girls);
 
     if (value == "female") {
       setStudents(girls);
     } else if (value == "male") {
       setStudents(boys);
     } else setStudents(students);
+  }
+  useEffect(() => reset(), []);
+
+  function reset() {
+    document.getElementById("rd1").checked = false;
+    document.getElementById("rd2").checked = false;
   }
 
   return (
@@ -80,6 +84,14 @@ export default function StudentTable() {
           onChange={handleChange}
         />
       </div>
+      <button
+        onClick={() => {
+          setStudents(origin);
+          reset();
+        }}
+      >
+        Reset
+      </button>
       <tr>
         <th>Id</th>
         <th>Photo</th>

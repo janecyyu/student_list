@@ -37,8 +37,6 @@ export default function Filter(data) {
         value="female"
         onChange={handleChange}
       />
-      <h4>Filter by age</h4>
-      <button onClick={handleSubmit}>submit</button>
     </div>
   );
 }
