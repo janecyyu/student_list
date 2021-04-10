@@ -15,7 +15,7 @@ export default function StudentTable() {
 
   useEffect(() => {
     axios
-      .get(`https://randomuser.me/api/?results=10`)
+      .get(`https://randomuser.me/api/?results=12`)
       .then((re) => {
         setGirls(re.data.results.filter((s) => s.gender == "female"));
         setBoys(re.data.results.filter((s) => s.gender == "male"));
