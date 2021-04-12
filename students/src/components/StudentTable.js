@@ -202,7 +202,7 @@ export default function StudentTable() {
           </tr>
           {students.map((s) => {
             return (
-              <tr>
+              <tr key={(id += 1)}>
                 <td>{(id += 1)}</td>
                 <td>
                   <img
