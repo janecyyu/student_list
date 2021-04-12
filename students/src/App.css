@@ -15,6 +15,7 @@
 .content{
   display: flex;
 }
+
 .container{
   display: flex;
   flex-direction: column;
@@ -45,6 +46,7 @@ tr:nth-child(even) {
 .filter{
   height: 15rem;
   width: 15rem;
+  margin-top: 1.5%;
 }
 
 #minAge, #maxAge {
@@ -105,7 +107,6 @@ input,.cursor{
   margin: 4px 2px;
   transition-duration: 0.2s;
   cursor: pointer;
-  
   background-color: rgb(67, 67, 67);
   color: white;
 }

@@ -111,17 +111,6 @@ export default function StudentTable() {
   return (
     <div className="tableClass">
       <h1>Students List</h1>
-      <div className="resetContainer">
-        <button
-          className="resetButton"
-          onClick={() => {
-            setStudents(origin);
-            reset();
-          }}
-        >
-          Reset
-        </button>
-      </div>
       <div className="content">
         <div className="filter">
           <h4>Filter by gender</h4>
@@ -167,6 +156,17 @@ export default function StudentTable() {
           </button>
         </div>
         <div>
+          <div className="resetContainer">
+            <button
+              className="resetButton"
+              onClick={() => {
+                setStudents(origin);
+                reset();
+              }}
+            >
+              Reset
+            </button>
+          </div>
           <tr>
             <th>Id</th>
             <th>Photo</th>
